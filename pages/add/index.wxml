@@ -1,0 +1,87 @@
+<view class="container">
+  <!-- AI 加载中 -->
+  <view class="ai-loading" wx:if="{{aiLoading}}">
+    <view class="loading-ring"></view>
+    <view class="loading-text">AI 正在解析...</view>
+  </view>
+
+  <!-- 语音输入区 -->
+  <view class="voice-section" wx:if="{{!showManual}}">
+    <!-- 语音按钮 -->
+    <view class="voice-btn-wrapper">
+      <view 
+        class="voice-btn {{isRecording ? 'recording' : ''}} {{voiceResults.length > 0 ? 'done' : ''}}"
+        wx:if="{{voiceResults.length === 0}}"
+        bindtouchstart="startVoice"
+        bindtouchend="stopVoice"
+      >
+        <view class="voice-icon">🎤</view>
+        <view class="voice-label">{{isRecording ? '正在聆听...' : '按住说话'}}</view>
+      </view>
+    </view>
+
+    <view class="voice-hint" wx:if="{{!isRecording && voiceResults.length === 0}}">
+      <text>例如："喝咖啡38元 看电影35元 买豆浆18元"</text>
+    </view>
+
+    <!-- 识别结果展示 -->
+    <view class="results-card" wx:if="{{voiceResults.length > 0}}">
+      <view class="results-header">
+        <view class="results-title">识别到 {{voiceResults.length}} 笔消费</view>
+        <view class="results-reset" bindtap="resetVoice">重新录入</view>
+      </view>
+      <view class="voice-original">"{{voiceText}}"</view>
+
+      <view 
+        wx:for="{{voiceResults}}" 
+        wx:key="index"
+        class="result-item {{item.correction ? 'corrected' : ''}}"
+      >
+        <view class="result-left">
+          <view class="result-item-name" data-index="{{index}}" data-field="item" bindtap="modifyResult">
+            {{item.item || '点击修改'}} {{item.correction ? '✓已修正' : ''}}
+          </view>
+          <view class="result-item-cat" data-index="{{index}}" data-field="category" bindtap="modifyResult">
+            {{item.category}} {{item.type === 'income' ? '· 收入' : ''}} ›
+          </view>
+        </view>
+        <view class="result-right">
+          <view class="result-amount {{item.type}}" data-index="{{index}}" data-field="amount" bindtap="modifyResult">
+            {{item.type === 'income' ? '+' : ''}}¥{{item.amount}}
+          </view>
+          <view class="result-delete" data-index="{{index}}" bindtap="deleteResult">删除</view>
+        </view>
+      </view>
+
+      <view class="confirm-btn" bindtap="saveVoiceResults">
+        确认保存 {{voiceResults.length}} 笔
+      </view>
+    </view>
+  </view>
+
+  <!-- 文字输入入口 -->
+  <view class="manual-toggle" wx:if="{{!showTextInput && voiceText === ''}}">
+    <view class="toggle-text" bindtap="toggleTextInput">或文字输入 {{showTextInput ? '▲' : '▼'}}</view>
+  </view>
+
+  <!-- 文字输入区 -->
+  <view class="text-section" wx:if="{{showTextInput}}">
+    <view class="manual-toggle">
+      <view class="toggle-text" bindtap="toggleTextInput">返回语音录入 ▲</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">文字记账</view>
+      <view class="text-hint">输入自然语言描述，AI自动识别消费</view>
+      <textarea 
+        class="text-input-area"
+        value="{{textInput}}"
+        placeholder="例如：&#10;咖啡38元 看电影35元 买豆浆18元&#10;看电影45元 不是45是35 奶茶18元"
+        bindinput="onTextInput"
+        maxlength="500"
+        auto-height
+      />
+      <view class="save-btn text-parse-btn" bindtap="parseTextInput">AI 解析</view>
+    </view>
+  </view>
+</view>
