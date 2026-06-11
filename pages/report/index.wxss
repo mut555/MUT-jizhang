@@ -1,0 +1,48 @@
+.container { min-height: 100vh; padding: 20rpx; background: #f0f2f5; padding-bottom: 40rpx; }
+
+.month-bar {
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 12rpx; padding: 20rpx 0; margin-bottom: 20rpx;
+}
+.month-arrow {
+  width: 56rpx; height: 56rpx; line-height: 56rpx; text-align: center;
+  font-size: 40rpx; color: #1677ff; border-radius: 50%;
+}
+.month-arrow:active { background: #f0f2f5; }
+.month-arrow.disabled { opacity: 0.3; }
+.month-name { font-size: 32rpx; font-weight: bold; color: #333; margin: 0 40rpx; }
+
+.stats-grid { display: flex; gap: 12rpx; margin-bottom: 20rpx; }
+.stat-card {
+  flex: 1; background: #fff; border-radius: 12rpx; padding: 24rpx 12rpx; text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.stat-val { font-size: 34rpx; font-weight: bold; margin-bottom: 6rpx; color: #333; }
+.stat-val.expense { color: #ff4d4f; }
+.stat-val.blue { color: #1677ff; }
+.stat-label { font-size: 20rpx; color: #999; }
+
+.income-card {
+  display: flex; justify-content: space-between; align-items: center;
+  border-left: 6rpx solid #52c41a;
+}
+.income-label { font-size: 28rpx; color: #333; }
+.income-value { font-size: 32rpx; font-weight: bold; color: #52c41a; }
+
+.card-title { font-size: 28rpx; font-weight: bold; color: #333; margin-bottom: 16rpx; }
+
+.pie-wrap { display: flex; justify-content: center; margin: 10rpx 0; }
+
+.legend { margin-top: 10rpx; }
+.legend-row {
+  display: flex; align-items: center; padding: 14rpx 0; border-bottom: 1rpx solid #f5f5f5;
+}
+.legend-row:last-child { border-bottom: none; }
+.legend-dot { width: 14rpx; height: 14rpx; border-radius: 50%; margin-right: 12rpx; flex-shrink: 0; }
+.legend-name { flex: 1; font-size: 24rpx; color: #333; }
+.legend-pct { font-size: 24rpx; color: #1677ff; font-weight: bold; margin-right: 16rpx; min-width: 60rpx; text-align: right; }
+.legend-amt { font-size: 24rpx; color: #ff4d4f; font-weight: bold; min-width: 80rpx; text-align: right; }
+
+.empty-card { text-align: center; padding: 80rpx 30rpx; }
+.empty-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.empty-text { font-size: 28rpx; color: #666; }
