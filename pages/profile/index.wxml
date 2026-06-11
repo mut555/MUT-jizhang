@@ -1,0 +1,76 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="user-info" wx:if="{{hasUserInfo}}">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view class="user-detail">
+        <view class="nickname">{{userInfo.nickName}}</view>
+        <view class="user-stats">已记录 {{totalBills}} 笔账单</view>
+      </view>
+    </view>
+    <view class="user-info" wx:else bindtap="getUserProfile">
+      <view class="avatar-placeholder">👤</view>
+      <view class="user-detail">
+        <view class="nickname">点击登录</view>
+        <view class="user-stats">微信一键登录</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stats-card">
+    <view class="stat-item">
+      <view class="stat-val expense">¥{{monthExpense}}</view>
+      <view class="stat-label">本月支出</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-val income">¥{{monthIncome}}</view>
+      <view class="stat-label">本月收入</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-val">{{totalBills}}</view>
+      <view class="stat-label">总笔数</view>
+    </view>
+  </view>
+
+  <!-- 消费最多 -->
+  <view class="card" wx:if="{{topCategory}}">
+    <view class="section-title">本月消费最多</view>
+    <view class="top-cat">
+      <view class="top-cat-icon" style="background:{{topCategory.color}}20">{{topCategory.icon}}</view>
+      <view class="top-cat-info">
+        <view class="top-cat-name">{{topCategory.name}}</view>
+        <view class="top-cat-amt">¥{{topCategory.amount}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近 -->
+  <view class="card" wx:if="{{recentBills.length > 0}}">
+    <view class="section-title">最近账单</view>
+    <view wx:for="{{recentBills}}" wx:key="id" class="recent-row">
+      <view class="recent-icon" style="background:{{item.color}}20">{{item.icon}}</view>
+      <view class="recent-info">
+        <text class="recent-name">{{item.item || item.category}}</text>
+        <text class="recent-date">{{item.dateStr}}</text>
+      </view>
+      <text class="recent-amt {{item.type}}">{{item.type === 'expense' ? '-' : '+'}}¥{{item.amount}}</text>
+    </view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="menu-card card">
+    <view class="menu-row" bindtap="exportData">
+      <text>📤 导出数据</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="clearData">
+      <text>🗑️ 清除数据</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="about">MUT记账 v2.0</view>
+</view>
