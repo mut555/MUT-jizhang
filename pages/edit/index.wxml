@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 类型切换 -->
+  <view class="type-toggle">
+    <view class="type-item {{type === 'expense' ? 'active expense' : ''}}" data-type="expense" bindtap="toggleType">支出</view>
+    <view class="type-item {{type === 'income' ? 'active income' : ''}}" data-type="income" bindtap="toggleType">收入</view>
+  </view>
+
+  <!-- 金额 -->
+  <view class="card">
+    <view class="field-label">金额</view>
+    <view class="amount-row">
+      <text class="currency">¥</text>
+      <input class="amount-input" value="{{amount}}" placeholder="0.00" type="digit" bindinput="onAmountInput" />
+    </view>
+  </view>
+
+  <!-- 项目 -->
+  <view class="card">
+    <view class="field-label">项目名称</view>
+    <input class="text-input" value="{{item}}" placeholder="如：咖啡、外卖、地铁" bindinput="onItemInput" maxlength="30" />
+  </view>
+
+  <!-- 分类 -->
+  <view class="card">
+    <view class="field-label">消费分类</view>
+    <view class="category-grid">
+      <view wx:for="{{categories}}" wx:key="name"
+        class="cat-item {{selectedCategory === item.name ? 'selected' : ''}}"
+        data-category="{{item.name}}" bindtap="selectCategory">
+        <text>{{item.icon}}</text>
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期 -->
+  <view class="card">
+    <view class="field-label">日期</view>
+    <picker mode="date" value="{{billDate}}" bindchange="onDateChange">
+      <view class="date-picker">{{billDate || '点击选择日期'}}</view>
+    </picker>
+  </view>
+
+  <!-- 操作 -->
+  <view class="actions">
+    <view class="save-btn" bindtap="save">保存修改</view>
+    <view class="delete-btn" bindtap="deleteBill">删除账单</view>
+  </view>
+</view>
