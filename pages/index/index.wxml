@@ -1,0 +1,64 @@
+<view class="container">
+  <!-- 月度概览 -->
+  <view class="card overview-card">
+    <view class="month-label">{{currentMonth}} · 总支出</view>
+    <view class="overview-amount">¥{{monthTotal}}</view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <scroll-view class="filter-bar" scroll-x enable-flex>
+    <view class="filter-item {{activeFilter === '全部' ? 'active' : ''}}" data-filter="全部" bindtap="setFilter">全部</view>
+    <view wx:for="{{categories}}" wx:key="name"
+      class="filter-item {{activeFilter === item.name ? 'active' : ''}}"
+      data-filter="{{item.name}}" bindtap="setFilter">
+      {{item.icon}} {{item.name}}
+    </view>
+  </scroll-view>
+
+  <!-- 账单列表 -->
+  <view wx:if="{{groupedBills.length > 0}}">
+    <view wx:for="{{groupedBills}}" wx:key="date" wx:for-item="group">
+      <view class="date-header">
+        <text class="date-text">{{group.date}}</text>
+        <text class="date-total" wx:if="{{group.total > 0}}">支出 ¥{{group.total}}</text>
+      </view>
+
+      <view wx:for="{{group.bills}}" wx:key="id" wx:for-item="bill"
+        class="card bill-card" data-id="{{bill.id}}" bindtap="editBill">
+        <view class="bill-row">
+          <view class="bill-icon-wrap" style="background: {{bill.color}}15">
+            <text>{{bill.icon}}</text>
+          </view>
+          <view class="bill-info">
+            <view class="bill-item-name">{{bill.item || bill.category}}</view>
+            <view class="bill-meta">
+              <text class="bill-cat-tag">{{bill.category}}</text>
+              <text class="bill-source" wx:if="{{bill.source === 'voice'}}">🎤</text>
+              <text class="bill-source" wx:elif="{{bill.source === 'camera'}}">📷</text>
+            </view>
+          </view>
+          <view class="bill-right">
+            <view class="bill-amount {{bill.type}}">{{bill.displayAmount}}</view>
+            <view class="bill-time">{{bill.dateStr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="load-more" wx:if="{{loading}}"><text>加载中...</text></view>
+    <view class="load-more" wx:elif="{{!hasMore && groupedBills.length > 0}}"><text>— 没有更多了 —</text></view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-card" wx:if="{{groupedBills.length === 0}}">
+    <view class="empty-icon">📝</view>
+    <view class="empty-text">还没有账单记录</view>
+    <view class="empty-sub">点击底部「语音记」开始吧</view>
+  </view>
+
+  <!-- 语音记账悬浮按钮 -->
+  <view class="voice-float" bindtap="goToAdd">
+    <text>🎤</text>
+  </view>
+</view>
