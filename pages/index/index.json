@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "MUT记账",
+  "navigationBarBackgroundColor": "#1677ff",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 60,
+  "usingComponents": {}
+}
