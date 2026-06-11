@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- 月份切换 -->
+  <view class="month-bar">
+    <view class="month-arrow" bindtap="prevMonth">‹</view>
+    <view class="month-name">{{displayMonth}}</view>
+    <view class="month-arrow {{isCurrentMonth ? 'disabled' : ''}}" bindtap="nextMonth">›</view>
+  </view>
+
+  <!-- 月度统计卡片 -->
+  <view class="stats-grid">
+    <view class="stat-card">
+      <view class="stat-val expense">¥{{monthTotal}}</view>
+      <view class="stat-label">月总支出</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val blue">¥{{avgDaily}}</view>
+      <view class="stat-label">日均支出</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val">{{consumptionDays}}</view>
+      <view class="stat-label">消费天数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val">{{billCount}}</view>
+      <view class="stat-label">消费笔数</view>
+    </view>
+  </view>
+
+  <!-- 收入 -->
+  <view class="card income-card" wx:if="{{monthIncome !== '0.00'}}">
+    <text class="income-label">本月收入</text>
+    <text class="income-value">+¥{{monthIncome}}</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="card empty-card" wx:if="{{billCount === 0}}">
+    <view class="empty-icon">📊</view>
+    <view class="empty-text">{{displayMonth}}暂无消费数据</view>
+  </view>
+
+  <!-- 每日柱状图 -->
+  <view class="card" wx:if="{{billCount > 0}}">
+    <view class="card-title">每日支出趋势</view>
+    <canvas type="2d" id="barChart" style="width:100%;height:320rpx;"></canvas>
+  </view>
+
+  <!-- 分类饼图 -->
+  <view class="card" wx:if="{{categoryStats.length > 0}}">
+    <view class="card-title">消费分类占比</view>
+    <view class="pie-wrap">
+      <canvas type="2d" id="pieChart" style="width:380rpx;height:380rpx;"></canvas>
+    </view>
+    <view class="legend">
+      <view wx:for="{{categoryStats}}" wx:key="name" class="legend-row">
+        <view class="legend-dot" style="background:{{item.color}}"></view>
+        <text class="legend-name">{{item.icon}} {{item.name}}</text>
+        <text class="legend-pct">{{item.percent}}%</text>
+        <text class="legend-amt">¥{{item.amount}}</text>
+      </view>
+    </view>
+  </view>
+</view>
