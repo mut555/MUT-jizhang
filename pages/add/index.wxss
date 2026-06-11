@@ -1,0 +1,117 @@
+.container {
+  min-height: 100vh;
+  padding: 20rpx;
+  background: #f0f2f5;
+  padding-bottom: 60rpx;
+}
+
+/* AI 加载 */
+.ai-loading {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 999;
+}
+.loading-ring {
+  width: 80rpx; height: 80rpx;
+  border: 5rpx solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: #fff; font-size: 28rpx; margin-top: 24rpx; }
+
+/* 语音按钮区 */
+.voice-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 60rpx 0 20rpx;
+}
+.voice-btn-wrapper {
+  margin-bottom: 30rpx;
+}
+.voice-btn {
+  width: 260rpx; height: 260rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1677ff, #4096ff);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 12rpx 40rpx rgba(22,119,255,0.35);
+  transition: all 0.3s;
+}
+.voice-btn.recording {
+  background: linear-gradient(135deg, #ff4d4f, #ff7875);
+  box-shadow: 0 0 0 20rpx rgba(255,77,79,0.15);
+  transform: scale(1.05);
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 10rpx rgba(255,77,79,0.15); }
+  50% { box-shadow: 0 0 0 30rpx rgba(255,77,79,0.05); }
+}
+.voice-btn.done {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+  box-shadow: 0 8rpx 30rpx rgba(82,196,26,0.3);
+}
+.voice-icon { font-size: 72rpx; margin-bottom: 8rpx; }
+.voice-label { color: #fff; font-size: 26rpx; }
+
+.voice-hint {
+  text-align: center; font-size: 26rpx; color: #999;
+  background: #fff; padding: 20rpx 32rpx; border-radius: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+/* 识别结果卡片 */
+.results-card {
+  width: 100%; background: #fff; border-radius: 16rpx;
+  padding: 30rpx; margin-top: 30rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+}
+.results-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx;
+}
+.results-title { font-size: 30rpx; font-weight: bold; color: #333; }
+.results-reset { font-size: 24rpx; color: #1677ff; }
+.voice-original {
+  background: #e6f0ff; padding: 16rpx 20rpx; border-radius: 8rpx;
+  font-size: 24rpx; color: #1677ff; margin-bottom: 20rpx; line-height: 1.5;
+}
+
+.result-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20rpx 0; border-bottom: 1rpx solid #f0f0f0;
+}
+.result-item.corrected { background: #f6ffed; margin: 0 -20rpx; padding: 20rpx; border-radius: 8rpx; }
+.result-item:last-child { border-bottom: none; }
+.result-item-name { font-size: 28rpx; color: #333; margin-bottom: 4rpx; }
+.result-item-cat { font-size: 22rpx; color: #999; }
+.result-right { text-align: right; }
+.result-amount { font-size: 32rpx; font-weight: bold; color: #ff4d4f; }
+.result-amount.income { color: #52c41a; }
+.result-delete { font-size: 20rpx; color: #999; margin-top: 4rpx; }
+
+.confirm-btn {
+  width: 100%; padding: 24rpx 0; text-align: center; margin-top: 24rpx;
+  background: linear-gradient(135deg, #1677ff, #4096ff);
+  color: #fff; font-size: 30rpx; font-weight: bold;
+  border-radius: 12rpx;
+  box-shadow: 0 6rpx 20rpx rgba(22,119,255,0.3);
+}
+
+/* 手动开关 */
+.manual-toggle { text-align: center; padding: 20rpx 0; }
+.toggle-text { font-size: 26rpx; color: #1677ff; display: inline-block; padding: 12rpx 32rpx; }
+
+/* 文字输入 */
+.text-section { padding-bottom: 60rpx; }
+.text-hint {
+  font-size: 24rpx; color: #999; margin-bottom: 16rpx;
+}
+.text-input-area {
+  width: 100%; min-height: 180rpx;
+  font-size: 28rpx; color: #333; line-height: 1.6;
+  border: 2rpx solid #e8e8e8; border-radius: 12rpx;
+  padding: 20rpx; box-sizing: border-box;
+  background: #fafafa;
+}
+.text-input-area:focus { border-color: #1677ff; background: #fff; }
+.text-parse-btn { margin-top: 20rpx; }
